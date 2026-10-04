@@ -1,3 +1,4 @@
+
 import { useNavigate } from "react-router-dom";
 
 function ProductCard({ product, addToCart }) {
@@ -9,11 +10,22 @@ function ProductCard({ product, addToCart }) {
 
   return (
     <div className="product-card">
-      <img
-        src={product.image}
-        alt={product.name}
-        className="product-image"
-      />
+      {product.video ? (
+        <video
+          src={product.video}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="product-image"
+        />
+      ) : (
+        <img
+          src={product.image}
+          alt={product.name}
+          className="product-image"
+        />
+      )}
 
       <div className="product-info">
         <h2>{product.name}</h2>
@@ -44,3 +56,4 @@ function ProductCard({ product, addToCart }) {
 }
 
 export default ProductCard;
+

@@ -1,3 +1,4 @@
+
 const products = [
   {
     id: 1,
@@ -14,6 +15,8 @@ const products = [
     price: 1400,
     image:
       "https://helios-i.mashable.com/imagery/articles/07HZ0m3yDLBr1Ofd1991itU/hero-image.fill.size_1200x1200.v1788457813.jpg",
+    video:
+      "https://www.apple.com/105/media/us/iphone-18-pro/2026/591df885-5ee2-4173-86e6-401021249f7c/anim/highlights-colors/large.mp4",
   },
   {
     id: 3,
@@ -26,3 +29,4 @@ const products = [
 ];
 
 export default products;
+

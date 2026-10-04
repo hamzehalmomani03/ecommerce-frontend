@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
@@ -10,9 +11,24 @@ function ManageProducts() {
     const savedProducts =
       localStorage.getItem("adminProducts");
 
-    return savedProducts
-      ? JSON.parse(savedProducts)
-      : productsData;
+    if (!savedProducts) {
+      return productsData;
+    }
+
+    const saved = JSON.parse(savedProducts);
+
+    return saved.map((savedProduct) => {
+      const originalProduct = productsData.find(
+        (product) => product.id === savedProduct.id
+      );
+
+      return {
+        ...savedProduct,
+        ...(originalProduct?.video
+          ? { video: originalProduct.video }
+          : {}),
+      };
+    });
   });
 
   const [showForm, setShowForm] = useState(false);
@@ -110,7 +126,7 @@ function ManageProducts() {
     setName(product.name);
     setDescription(product.description);
     setPrice(product.price);
-    setImage(product.image);
+    setImage(product.image || "");
 
     setShowForm(true);
   }
@@ -327,10 +343,31 @@ function ManageProducts() {
               key={product.id}
             >
               <div className="admin-product-image">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                />
+                {product.video ? (
+                  <video
+                    src={product.video}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    controls
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                )}
               </div>
 
               <div className="admin-product-content">
@@ -381,3 +418,4 @@ function ManageProducts() {
 }
 
 export default ManageProducts;
+
